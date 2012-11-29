@@ -166,6 +166,7 @@ public class JazzRootServicesHelper {
 	{
 		try {
 			OslcClient rootServicesClient = new OslcClient();
+			System.out.println("In Oslc Client");
 			ClientResponse response = rootServicesClient.getResource(rootServicesUrl,OSLCConstants.CT_RDF);
 			InputStream is = response.getEntity(InputStream.class);
 			Model rdfModel = ModelFactory.createDefaultModel();

@@ -390,7 +390,53 @@ public class OslcClient {
 		throw new NoSuchAlgorithmException("No suitable secured socket provider is installed"); //$NON-NLS-1$
 	} 
 	
-	private void setupLazySSLSupport()   {
+	
+	
+	
+	 private void setupLazySSLSupport() {
+		ClientConnectionManager connManager = httpClient.getConnectionManager();
+		SchemeRegistry schemeRegistry = connManager.getSchemeRegistry();
+		schemeRegistry.unregister("https");
+		/** Create a trust manager that does not validate certificate chains */
+		TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+			public void checkClientTrusted(
+					java.security.cert.X509Certificate[] certs, String authType) {
+				/** Ignore Method Call */
+			}
+
+			public void checkServerTrusted(
+					java.security.cert.X509Certificate[] certs, String authType) {
+				/** Ignore Method Call */
+			}
+
+			public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+				return null;
+			}
+		} };
+
+		SSLContext sc = null;
+		try {
+			sc = SSLContext.getInstance("SSL"); //$NON-NLS-1$
+			sc.init(null, trustAllCerts, new java.security.SecureRandom());
+		} catch (NoSuchAlgorithmException e) {
+			/* Fail Silently */
+		} catch (KeyManagementException e) {
+			/* Fail Silently */
+		}
+
+		SSLSocketFactory sf = new SSLSocketFactory(sc);
+		sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		Scheme https = new Scheme("https", sf, 443);
+
+		schemeRegistry.register(https);
+
+	}
+
+	
+	
+	
+	
+	private void setupLazySSLSupport_old()   {
 		ClientConnectionManager connManager = httpClient.getConnectionManager();
 		SchemeRegistry schemeRegistry = connManager.getSchemeRegistry();
 		schemeRegistry.unregister("https");

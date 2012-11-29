@@ -24,11 +24,11 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.cli.CommandLine;
+/*import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.ParseException;*/
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpStatus;
 import org.apache.wink.client.ClientResponse;
@@ -61,9 +61,9 @@ public class RRCFormSample {
 	 * @param args
 	 * @throws ParseException 
 	 */
-	public static void main(String[] args) throws ParseException {
+	public static void main(String[] args) {
 
-		Options options=new Options();
+		/*Options options=new Options();
 		
 		options.addOption("url", true, "url");
 		options.addOption("user", true, "user ID");
@@ -84,7 +84,12 @@ public class RRCFormSample {
 		String webContextUrl = cmd.getOptionValue("url");
 		String user = cmd.getOptionValue("user");
 		String passwd = cmd.getOptionValue("password");
-		String projectArea = cmd.getOptionValue("project");
+		String projectArea = cmd.getOptionValue("project");*/
+		
+		String webContextUrl = args[1];
+		String user = args[2];
+		String passwd = args[3];
+		String projectArea = args[4];
 		
 		try {
 		
@@ -198,7 +203,7 @@ public class RRCFormSample {
 	}
 
 	
-	private static boolean validateOptions(CommandLine cmd) {
+	/*private static boolean validateOptions(CommandLine cmd) {
 		boolean isValid = true;
 		
 		if (! (cmd.hasOption("url") &&
@@ -210,5 +215,5 @@ public class RRCFormSample {
 		}
 		return isValid;		
 	}
-
+*/
 }
