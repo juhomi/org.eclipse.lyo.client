@@ -65,6 +65,7 @@ public class JazzRootServicesHelper {
 	
 	private static final Logger logger = Logger.getLogger(JazzRootServicesHelper.class.getName());
 	
+
 	/**
 	 * Initialize Jazz rootservices-related URLs such as the catalog location and OAuth URLs
 	 * 
@@ -75,8 +76,15 @@ public class JazzRootServicesHelper {
 	 * @throws RootServicesException
 	 */
 	public JazzRootServicesHelper (String url, String catalogDomain) throws RootServicesException {
+		this(url, catalogDomain, "/rootservices");
+	}
+	
+	
+	
+	
+	public JazzRootServicesHelper (String url, String catalogDomain, String rootServicesPath) throws RootServicesException {
 		this.baseUrl = url;
-		this.rootServicesUrl = this.baseUrl + "/rootservices";
+		this.rootServicesUrl = this.baseUrl + rootServicesPath;
 		this.catalogDomain = catalogDomain;
 		
 		if (this.catalogDomain.equalsIgnoreCase(OSLCConstants.OSLC_CM) ||
@@ -109,6 +117,9 @@ public class JazzRootServicesHelper {
 				
 		processRootServices();
 	}
+	
+	
+	
 	
 	/**
 	 * Get the OSLC Catalog URL
